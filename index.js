@@ -13,7 +13,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.get('/', (req, res) => {
+app.get('/get-all-users', (req, res) => {
     league_user_model.getUser()
   .then(response => {
     res.status(200).send(response);
