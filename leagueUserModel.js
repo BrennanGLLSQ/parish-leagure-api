@@ -15,7 +15,13 @@ const getUser = () => {
         if (error) {
           reject(error)
         }
-        resolve(results.rows)
+        const result = results?.rows
+        if(!result){
+          reject('No rows found')
+        }
+        else{
+          resolve(result)
+        }
       })
     }) 
   }
