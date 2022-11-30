@@ -1,5 +1,6 @@
 
 const express = require('express')
+const {getBrackets} = require('./src/services/dynamoHelper')
 const app = express()
 const port = 3001
 
@@ -23,8 +24,9 @@ app.get('/get-all-users', (req, res) => {
   })
 })
 
-app.get('/testing-ec2', (req, res) => {
-  res.status(200).send('Hit the instance')
+app.get('/testing-ec2', async (req, res) => {
+  const items = await getBrackets()
+  res.status(200).send(items)
 })
 
 app.post('/create-user', (req, res) => {
