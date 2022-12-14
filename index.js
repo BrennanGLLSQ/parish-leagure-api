@@ -1,6 +1,6 @@
 
 const express = require('express')
-const {getBrackets} = require('./src/services/dynamoHelper')
+const {getBrackets, postNewBracket} = require('./src/services/dynamoHelper')
 const app = express()
 const port = 3001
 
@@ -25,7 +25,14 @@ app.get('/get-all-users', (req, res) => {
 })
 
 app.get('/testing-ec2', async (req, res) => {
-  const items = await getBrackets()
+  const items = await getBrackets({userName: 'aaaaa just some name', email: 'email@email.com'})
+  await postNewBracket({
+    userName: {S: 'test'},
+    closurePicks: {L: [{N: "1"},{N: "2"},{N: "3"}]},
+    openPicks: {L: [{N: "4"},{N:"5"},{N:"6"}]},
+    email: {S: 'asdf@email.com'},
+  })
+
   res.status(200).send(items)
 })
 
